@@ -16,7 +16,7 @@ export function HeroSection() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-display font-extrabold leading-[1.1] mb-8 tracking-tight text-white uppercase">
+        <h1 className="text-[clamp(2rem,6vw,4.5rem)] font-display font-extrabold leading-[1.1] mb-8 tracking-tight text-white uppercase">
           <span className="block opacity-0 animate-fade-up [animation-delay:150ms]">
             Oddiy reklama emas.
           </span>
