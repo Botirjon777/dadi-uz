@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { NAV_LINKS, CONTACT_INFO } from "@/lib/constants";
 
 export function Navbar() {
@@ -26,8 +27,14 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold font-display flex items-center gap-0.5 tracking-tight">
-          DADI<span className="text-accent text-sm self-start mt-1">.UZ</span>
+        <Link href="/" className="relative w-24 h-8 transition-opacity hover:opacity-80">
+          <Image
+            src="/logo.png"
+            alt="Dadi.uz"
+            fill
+            className="object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop Links */}
