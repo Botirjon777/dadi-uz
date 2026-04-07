@@ -19,17 +19,17 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-bg/85 backdrop-blur-xl border-b border-border py-4"
-          : "bg-transparent py-6"
+          ? "bg-bg/90 backdrop-blur-xl border-b border-border py-4"
+          : "bg-bg/40 backdrop-blur-md py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="relative w-24 h-8 transition-opacity hover:opacity-80">
           <Image
-            src="/logos/logo-white.png"
+            src="/images/logos/logo-white.webp"
             alt="Dadi.uz"
             fill
             className="object-contain"

@@ -13,7 +13,7 @@
   --font-body: var(--font-pjs), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
 
-  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
   --animate-fade-up: fadeUp 0.7s ease forwards;
 
   @keyframes marquee {
