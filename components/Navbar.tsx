@@ -29,10 +29,11 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="relative w-24 h-8 transition-opacity hover:opacity-80">
           <Image
-            src="/logo.png"
+            src="/logos/logo-white.png"
             alt="Dadi.uz"
             fill
             className="object-contain"
+            sizes="(max-width: 768px) 100px, 150px"
             priority
           />
         </Link>

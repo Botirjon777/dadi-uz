@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
-  { label: "Ishlar", href: "#works" },
-  { label: "Kim biz", href: "#about" },
+  { label: "Biz Kim?", href: "#about" },
   { label: "Xizmatlar", href: "#services" },
+  { label: "Ishlar", href: "#works" },
   { label: "Aloqa", href: "#contact" },
 ];
 
