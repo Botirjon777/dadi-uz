@@ -33,7 +33,7 @@ export function Footer() {
             className="relative w-20 h-6 transition-opacity hover:opacity-80"
           >
             <Image
-              src="/logos/logo-green.png"
+              src="/images/logos/logo-green.webp"
               alt="Dadi.uz"
               fill
               className="object-contain"
