@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { NAV_LINKS, CONTACT_INFO } from "@/lib/constants";
 import { Send } from "lucide-react";
 
@@ -25,9 +26,23 @@ export function Footer() {
   return (
     <footer className="py-12 bg-bg border-t border-border">
       <div className="container mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
-        {/* Left: Copyright */}
-        <div className="text-[10px] font-body text-muted uppercase tracking-wider">
-          DADI.UZ © {currentYear} · Barcha huquqlar himoyalangan
+        {/* Left: Logo & Copyright */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/"
+            className="relative w-20 h-6 transition-opacity hover:opacity-80"
+          >
+            <Image
+              src="/logos/logo-green.png"
+              alt="Dadi.uz"
+              fill
+              className="object-contain"
+              sizes="100px"
+            />
+          </Link>
+          <div className="text-xs font-body text-text/50 uppercase tracking-wider">
+            © {currentYear} · Barcha huquqlar himoyalangan
+          </div>
         </div>
 
         {/* Center: Nav links */}
@@ -36,7 +51,7 @@ export function Footer() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-[10px] font-display font-bold text-muted hover:text-text transition-colors uppercase tracking-wider"
+              className="text-xs font-display font-bold text-text/50 hover:text-text transition-colors uppercase tracking-wider"
             >
               {link.label}
             </Link>
@@ -49,7 +64,7 @@ export function Footer() {
             href={CONTACT_INFO.telegram_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-accent transition-colors"
+            className="text-text/50 hover:text-accent transition-colors"
           >
             <Send size={18} />
           </a>
@@ -57,7 +72,7 @@ export function Footer() {
             href={`https://instagram.com/${CONTACT_INFO.instagram.replace("@", "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted hover:text-accent transition-colors"
+            className="text-text/50 hover:text-accent transition-colors"
           >
             <InstagramIcon size={18} />
           </a>
