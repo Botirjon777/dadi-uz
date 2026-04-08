@@ -1,7 +1,6 @@
 export const NAV_LINKS = [
   { label: "Biz Kim?", href: "#about" },
   { label: "Xizmatlar", href: "#services" },
-  { label: "Galleriyamiz", href: "#gallery" },
   { label: "Ishlar", href: "#works" },
   { label: "Aloqa", href: "#contact" },
 ];
@@ -10,7 +9,8 @@ export const SERVICES = [
   {
     id: "01",
     title: "Kuchli Ideya",
-    description: "Maqsadingizga mos, boshqalardan ajralib turadigan konsepsiya.",
+    description:
+      "Maqsadingizga mos, boshqalardan ajralib turadigan konsepsiya.",
     icon: "spark",
   },
   {
