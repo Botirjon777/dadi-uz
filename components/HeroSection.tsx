@@ -74,13 +74,13 @@ export function HeroSection() {
             href={CONTACT_INFO.telegram_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-4 bg-accent text-white font-bold text-sm tracking-wide rounded-sm hover:translate-y-[-2px] transition-transform"
+            className="w-full sm:w-64 px-10 py-4 bg-accent text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] transition-all flex items-center justify-center"
           >
             Telegram'da yozing
           </a>
           <Link
             href="#contact"
-            className="px-10 py-4 border border-white/20 text-white font-bold text-sm tracking-wide rounded-sm hover:translate-y-[-2px] hover:border-white transition-all bg-white/5 backdrop-blur-sm"
+            className="w-full sm:w-64 px-10 py-4 border border-white/20 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] hover:border-white transition-all bg-white/5 backdrop-blur-sm flex items-center justify-center"
           >
             Loyiha haqida gaplashamiz
           </Link>

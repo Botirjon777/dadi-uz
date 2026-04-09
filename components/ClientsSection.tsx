@@ -91,7 +91,7 @@ export function ClientsSection() {
           {CLIENTS.map((client) => (
             <div
               key={client.name}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 cursor-pointer"
+              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 md:hover:scale-110 cursor-pointer"
             >
               <img
                 src={client.logo}
@@ -107,7 +107,7 @@ export function ClientsSection() {
           {CLIENTS.map((client) => (
             <div
               key={`${client.name}-clone`}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 cursor-pointer"
+              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 md:hover:scale-110 cursor-pointer"
             >
               <img
                 src={client.logo}
