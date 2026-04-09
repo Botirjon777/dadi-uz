@@ -25,6 +25,8 @@ export function ClientsSection() {
     }
   }, []);
 
+  const [pauseAuto, setPauseAuto] = useState(false);
+
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -32,7 +34,7 @@ export function ClientsSection() {
     let animationId: number;
 
     const animate = () => {
-      if (!isDragging) {
+      if (!isDragging && !pauseAuto) {
         container.scrollLeft += speed;
         handleInfiniteScroll();
       }
@@ -41,7 +43,7 @@ export function ClientsSection() {
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [isDragging, handleInfiniteScroll]);
+  }, [isDragging, pauseAuto, handleInfiniteScroll]);
 
   const handleStart = (clientX: number) => {
     setIsDragging(true);
@@ -76,7 +78,11 @@ export function ClientsSection() {
         onMouseDown={(e) => handleStart(e.pageX)}
         onMouseMove={(e) => handleMove(e.pageX)}
         onMouseUp={handleEnd}
-        onMouseLeave={handleEnd}
+        onMouseLeave={() => {
+          handleEnd();
+          setPauseAuto(false);
+        }}
+        onMouseEnter={() => setPauseAuto(true)}
         onTouchStart={(e) => handleStart(e.touches[0].pageX)}
         onTouchMove={(e) => handleMove(e.touches[0].pageX)}
         onTouchEnd={handleEnd}
@@ -85,12 +91,13 @@ export function ClientsSection() {
           {CLIENTS.map((client) => (
             <div
               key={client.name}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 pointer-events-none"
+              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 cursor-pointer"
             >
               <img
                 src={client.logo}
                 alt={client.name}
-                className="max-w-full max-h-full object-contain"
+                draggable={false}
+                className="max-w-full max-h-full object-contain pointer-events-none"
               />
             </div>
           ))}
@@ -100,12 +107,13 @@ export function ClientsSection() {
           {CLIENTS.map((client) => (
             <div
               key={`${client.name}-clone`}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 pointer-events-none"
+              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 hover:scale-110 cursor-pointer"
             >
               <img
                 src={client.logo}
                 alt={client.name}
-                className="max-w-full max-h-full object-contain"
+                draggable={false}
+                className="max-w-full max-h-full object-contain pointer-events-none"
               />
             </div>
           ))}
