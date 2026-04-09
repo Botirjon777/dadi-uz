@@ -1,68 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import { CLIENTS } from "@/lib/constants";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+
 export function ClientsSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeftState, setScrollLeftState] = useState(0);
-
-  // Auto-scroll speed (pixels per frame)
-  const speed = 0.8;
-
-  const handleInfiniteScroll = useCallback(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const halfWidth = container.scrollWidth / 2;
-
-    if (container.scrollLeft >= halfWidth) {
-      container.scrollLeft -= halfWidth;
-    } else if (container.scrollLeft <= 0) {
-      container.scrollLeft += halfWidth;
-    }
-  }, []);
-
-  const [pauseAuto, setPauseAuto] = useState(false);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let animationId: number;
-
-    const animate = () => {
-      if (!isDragging && !pauseAuto) {
-        container.scrollLeft += speed;
-        handleInfiniteScroll();
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [isDragging, pauseAuto, handleInfiniteScroll]);
-
-  const handleStart = (clientX: number) => {
-    setIsDragging(true);
-    if (!scrollRef.current) return;
-    setStartX(clientX - scrollRef.current.offsetLeft);
-    setScrollLeftState(scrollRef.current.scrollLeft);
-  };
-
-  const handleMove = (clientX: number) => {
-    if (!isDragging || !scrollRef.current) return;
-    const x = clientX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // multiplier for sensitivity
-    scrollRef.current.scrollLeft = scrollLeftState - walk;
-    handleInfiniteScroll();
-  };
-
-  const handleEnd = () => {
-    setIsDragging(false);
-  };
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   return (
     <section className="py-24 bg-bg overflow-hidden border-y border-border">
@@ -72,53 +21,47 @@ export function ClientsSection() {
         </h2>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="relative group flex overflow-x-hidden select-none py-8 scrollbar-hide active:cursor-grabbing cursor-grab touch-pan-y scroll-auto"
-        onMouseDown={(e) => handleStart(e.pageX)}
-        onMouseMove={(e) => handleMove(e.pageX)}
-        onMouseUp={handleEnd}
-        onMouseLeave={() => {
-          handleEnd();
-          setPauseAuto(false);
-        }}
-        onMouseEnter={() => setPauseAuto(true)}
-        onTouchStart={(e) => handleStart(e.touches[0].pageX)}
-        onTouchMove={(e) => handleMove(e.touches[0].pageX)}
-        onTouchEnd={handleEnd}
-      >
-        <div className="flex gap-24 md:gap-40 items-center whitespace-nowrap px-12 md:px-20 shrink-0">
+      <div className="relative py-8">
+        <Swiper
+          modules={[Autoplay, FreeMode]}
+          onSwiper={setSwiper}
+          slidesPerView={2}
+          spaceBetween={12}
+          loop={true}
+          speed={5000}
+          freeMode={true}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            768: {
+              slidesPerView: 5,
+              spaceBetween: 32,
+            },
+          }}
+          className="marquee-swiper ease-linear!"
+        >
           {CLIENTS.map((client) => (
-            <div
-              key={client.name}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 md:hover:scale-110 cursor-pointer"
-            >
-              <img
-                src={client.logo}
-                alt={client.name}
-                draggable={false}
-                className="max-w-full max-h-full object-contain pointer-events-none"
-              />
-            </div>
+            <SwiperSlide key={client.name}>
+              <div className="relative w-full h-20 md:h-32 flex items-center justify-center grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 md:hover:scale-110 cursor-pointer">
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  draggable={false}
+                  className="max-w-full max-h-full object-contain pointer-events-none"
+                />
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
-        {/* Duplicated for seamless loop */}
-        <div className="flex gap-24 md:gap-40 items-center whitespace-nowrap px-12 md:px-20 shrink-0">
-          {CLIENTS.map((client) => (
-            <div
-              key={`${client.name}-clone`}
-              className="relative w-28 h-12 md:w-40 md:h-20 flex items-center justify-center grayscale-0 opacity-100 md:grayscale md:opacity-60 md:hover:grayscale-0 md:hover:opacity-100 transition-all duration-700 md:hover:scale-110 cursor-pointer"
-            >
-              <img
-                src={client.logo}
-                alt={client.name}
-                draggable={false}
-                className="max-w-full max-h-full object-contain pointer-events-none"
-              />
-            </div>
-          ))}
-        </div>
+        </Swiper>
       </div>
+
+      <style jsx global>{`
+        .marquee-swiper .swiper-wrapper {
+          transition-timing-function: linear !important;
+        }
+      `}</style>
     </section>
   );
 }

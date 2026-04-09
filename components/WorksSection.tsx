@@ -1,9 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import { WORKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 interface WorkItemProps {
   work: (typeof WORKS)[0];
@@ -28,7 +35,7 @@ function WorkItem({ work, index }: WorkItemProps) {
   return (
     <div
       className={cn(
-        "group relative flex-none w-[calc(100vw-48px)] md:w-[340px] aspect-9/16 overflow-hidden bg-bg border border-border reveal transition-all duration-500 hover:border-accent/50"
+        "group relative w-full aspect-9/16 overflow-hidden bg-bg border border-border reveal transition-all duration-500 hover:border-accent/50",
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
@@ -48,18 +55,22 @@ function WorkItem({ work, index }: WorkItemProps) {
           {/* Custom Play/Pause Overlay */}
           <button
             onClick={togglePlay}
-            className="absolute inset-0 z-30 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute inset-0 z-30 flex items-center justify-center bg-black/10 md:bg-black/20 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300"
             aria-label={isPlaying ? "Pause video" : "Play video"}
           >
-            <div className="w-14 h-14 rounded-full bg-accent/90 flex items-center justify-center text-white backdrop-blur-sm transform transition-transform duration-300 hover:scale-110">
-              {isPlaying ? <Pause size={28} fill="white" /> : <Play size={28} className="ml-1" fill="white" />}
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-accent/90 flex items-center justify-center text-white backdrop-blur-sm transform transition-transform duration-300 hover:scale-110">
+              {isPlaying ? (
+                <Pause size={26} fill="white" />
+              ) : (
+                <Play size={26} className="ml-1" fill="white" />
+              )}
             </div>
           </button>
         </div>
       </div>
 
       {/* Hover Overlay Details */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-2.5 md:p-5 pointer-events-none z-10">
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-2.5 md:p-5 pointer-events-none z-10">
         <span className="text-[9px] font-display font-bold text-accent uppercase mb-2 tracking-[0.2em]">
           {work.category}
         </span>
@@ -72,25 +83,13 @@ function WorkItem({ work, index }: WorkItemProps) {
 }
 
 export function WorksSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const container = scrollRef.current;
-      const scrollAmount = container.clientWidth * 0.8;
-      const targetScroll = direction === "left" 
-        ? container.scrollLeft - scrollAmount 
-        : container.scrollLeft + scrollAmount;
-      
-      container.scrollTo({
-        left: targetScroll,
-        behavior: "smooth",
-      });
-    }
-  };
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   return (
-    <section id="works" className="py-24 md:py-32 bg-bg relative overflow-hidden">
+    <section
+      id="works"
+      className="py-24 md:py-32 bg-bg relative overflow-hidden"
+    >
       <div className="container mx-auto px-6">
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div className="max-w-2xl">
@@ -102,24 +101,37 @@ export function WorksSection() {
             </h2>
           </div>
           <div className="text-muted max-w-sm text-xs uppercase tracking-[0.2em] reveal leading-relaxed">
-            Har bir kadrda - yangi hikoya, har bir soniyada - yuqori sifat. Vertical formatdagi eng sara loyihalarimiz.
+            Har bir kadrda - yangi hikoya, har bir soniyada - yuqori sifat.
+            Vertical formatdagi eng sara loyihalarimiz.
           </div>
         </div>
       </div>
 
-      {/* Horizontal Scroll Container */}
-      <div className="relative">
-        <div 
-          ref={scrollRef}
-          className="flex overflow-x-auto overflow-y-hidden gap-6 px-6 md:px-[10%] pb-8 no-scrollbar scroll-smooth snap-x snap-mandatory"
+      {/* Swiper Container */}
+      <div className="relative px-6 md:px-[10%]">
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          onSwiper={setSwiper}
+          spaceBetween={24}
+          slidesPerView={1.2}
+          centeredSlides={true}
+          loop={true}
+          breakpoints={{
+            768: {
+              slidesPerView: 3.5,
+              spaceBetween: 40,
+              centeredSlides: false,
+            },
+          }}
+          className="overflow-visible!"
         >
           {WORKS.map((work, i) => (
-            <div key={work.id} className="snap-center">
+            <SwiperSlide key={work.id}>
               <WorkItem work={work} index={i} />
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
-        
+        </Swiper>
+
         {/* Subtle Gradient Fades */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-r from-bg to-transparent pointer-events-none z-20 hidden md:block" />
         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-l from-bg to-transparent pointer-events-none z-20 hidden md:block" />
@@ -128,19 +140,25 @@ export function WorksSection() {
       <div className="container mx-auto px-6">
         {/* Swiper Controls */}
         <div className="flex justify-center gap-4 mt-8 reveal">
-          <button 
-            onClick={() => scroll("left")}
+          <button
+            onClick={() => swiper?.slidePrev()}
             className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-all duration-300 hover:scale-110 active:scale-95 group"
             aria-label="Previous videos"
           >
-            <ChevronLeft size={20} className="transition-transform group-hover:-translate-x-0.5" />
+            <ChevronLeft
+              size={20}
+              className="transition-transform group-hover:-translate-x-0.5"
+            />
           </button>
-          <button 
-            onClick={() => scroll("right")}
+          <button
+            onClick={() => swiper?.slideNext()}
             className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-all duration-300 hover:scale-110 active:scale-95 group"
             aria-label="Next videos"
           >
-            <ChevronRight size={20} className="transition-transform group-hover:translate-x-0.5" />
+            <ChevronRight
+              size={20}
+              className="transition-transform group-hover:translate-x-0.5"
+            />
           </button>
         </div>
 
@@ -151,17 +169,6 @@ export function WorksSection() {
           </button>
         </div>
       </div>
-
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 }
-
