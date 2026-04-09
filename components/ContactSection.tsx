@@ -39,7 +39,7 @@ export function ContactSection() {
             <span className="text-[10px] font-mono tracking-widest text-accent uppercase mb-4 block">
               [ ALOQA ]
             </span>
-            <h2 className="text-4xl md:text-6xl font-display font-bold mb-8">
+            <h2 className="text-3xl md:text-6xl font-display font-bold mb-6 md:mb-8">
               Gaplashamiz
             </h2>
             <p className="max-w-md text-muted mb-12">
@@ -102,7 +102,7 @@ export function ContactSection() {
                   <input
                     required
                     type="text"
-                    className="w-full bg-surface border border-border px-6 py-4 focus:border-accent focus:outline-none transition-colors"
+                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="Ali Valiyev"
                   />
                 </div>
@@ -111,7 +111,7 @@ export function ContactSection() {
                   <input
                     required
                     type="tel"
-                    className="w-full bg-surface border border-border px-6 py-4 focus:border-accent focus:outline-none transition-colors"
+                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="+998 90 000 00 00"
                   />
                 </div>
@@ -119,7 +119,7 @@ export function ContactSection() {
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Kompaniya nomi (ixtiyoriy)</label>
                   <input
                     type="text"
-                    className="w-full bg-surface border border-border px-6 py-4 focus:border-accent focus:outline-none transition-colors"
+                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="Brend nomi"
                   />
                 </div>
@@ -127,14 +127,14 @@ export function ContactSection() {
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Xabar / Maqsad</label>
                   <textarea
                     rows={4}
-                    className="w-full bg-surface border border-border px-6 py-4 focus:border-accent focus:outline-none transition-colors resize-none"
+                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors resize-none placeholder:text-muted/50"
                     placeholder="Qanday loyiha ustida ishlaymiz?"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={formState === "sending"}
-                  className="w-full py-4 bg-accent text-white font-bold uppercase tracking-widest flex items-center justify-center gap-3 hover:translate-y-[-2px] transition-all disabled:opacity-50"
+                  className="w-full py-2.5 md:py-4 bg-accent text-white font-bold uppercase tracking-widest flex items-center justify-center gap-3 hover:translate-y-[-2px] transition-all disabled:opacity-50"
                 >
                   {formState === "sending" ? "Yuborilmoqda..." : "Yuborish"}
                   <Send size={18} />

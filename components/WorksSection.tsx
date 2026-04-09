@@ -28,7 +28,7 @@ function WorkItem({ work, index }: WorkItemProps) {
   return (
     <div
       className={cn(
-        "group relative flex-none w-[280px] md:w-[340px] aspect-9/16 overflow-hidden bg-bg border border-border reveal transition-all duration-500 hover:border-accent/50"
+        "group relative flex-none w-[calc(100vw-48px)] md:w-[340px] aspect-9/16 overflow-hidden bg-bg border border-border reveal transition-all duration-500 hover:border-accent/50"
       )}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
@@ -59,7 +59,7 @@ function WorkItem({ work, index }: WorkItemProps) {
       </div>
 
       {/* Hover Overlay Details */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8 pointer-events-none z-10">
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-2.5 md:p-5 pointer-events-none z-10">
         <span className="text-[9px] font-display font-bold text-accent uppercase mb-2 tracking-[0.2em]">
           {work.category}
         </span>
@@ -97,7 +97,7 @@ export function WorksSection() {
             <span className="text-[10px] font-display font-bold tracking-[0.3em] text-accent uppercase mb-4 block reveal">
               [ VIDEO REELS ]
             </span>
-            <h2 className="text-4xl md:text-6xl font-display font-bold reveal leading-none">
+            <h2 className="text-3xl md:text-6xl font-display font-bold reveal leading-tight md:leading-none">
               Tanlangan <span className="text-muted">ishlarimiz</span>
             </h2>
           </div>
