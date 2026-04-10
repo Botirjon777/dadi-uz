@@ -32,40 +32,43 @@ export const SERVICES = [
 export const WORKS = [
   {
     id: 1,
-    title: "Coca Cola Campaign",
-    category: "Commercial",
-    src: "/videos/works/Cola.mp4",
+    src: "/videos/works/1.MP4",
     type: "video",
   },
   {
     id: 2,
-    title: "Royal Luxury",
-    category: "Commercial",
-    src: "/videos/works/Royal.mp4",
+    src: "/videos/works/3.MP4",
     type: "video",
   },
   {
     id: 3,
-    title: "Modern Lifestyle",
-    category: "Branding",
-    src: "/videos/works/Cola.mp4",
+    src: "/videos/works/4.MP4",
     type: "video",
   },
   {
     id: 4,
-    title: "Fresh Energy",
-    category: "Social Media",
     src: "/videos/works/Cola.mp4",
     type: "video",
   },
   {
     id: 5,
-    title: "City Life",
-    category: "Event",
     src: "/videos/works/Royal.mp4",
     type: "video",
   },
+  {
+    id: 6,
+    src: "/videos/works/6.MP4",
+    type: "video",
+  },
+  {
+    id: 7,
+    src: "/videos/works/2.MP4",
+    type: "video",
+  },
 ];
+
+
+
 
 export const CLIENTS = [
   { name: "Alma", logo: "/images/partners/alma.webp" },

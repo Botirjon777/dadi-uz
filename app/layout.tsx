@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Space_Mono, Syne, Plus_Jakarta_Sans } from "next/font/google";
+import { Space_Mono, Outfit, Plus_Jakarta_Sans } from "next/font/google";
+
 import "./globals.css";
 
 const spaceMono = Space_Mono({
@@ -8,11 +9,12 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
+
 
 const pjs = Plus_Jakarta_Sans({
   variable: "--font-pjs",
@@ -40,7 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uz" className={`${spaceMono.variable} ${syne.variable} ${pjs.variable} scroll-smooth`}>
+    <html lang="uz" className={`${spaceMono.variable} ${outfit.variable} ${pjs.variable} scroll-smooth`}>
+
       <body className="bg-bg text-text selection:bg-accent selection:text-white">
         <div className="noise-overlay" />
         {children}

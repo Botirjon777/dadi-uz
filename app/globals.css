@@ -9,7 +9,8 @@
   --color-text: #F2F2F2;
   --color-muted: #6B6B6B;
 
-  --font-display: var(--font-syne), sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+
   --font-body: var(--font-pjs), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
 

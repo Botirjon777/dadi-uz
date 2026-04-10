@@ -65,7 +65,7 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 animate-fade-up [animation-delay:600ms]">
           <Link
             href="#contact"
-            className="w-full sm:w-64 h-16 px-6 border border-white/20 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] hover:border-white transition-all bg-white/5 backdrop-blur-sm flex items-center justify-center text-center whitespace-nowrap"
+            className="w-full sm:w-64 h-16 px-6 bg-accent text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] transition-all flex items-center justify-center text-center whitespace-nowrap"
           >
             So'rovnomani to'ldirish
           </Link>
@@ -73,7 +73,7 @@ export function HeroSection() {
             href={CONTACT_INFO.telegram_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-64 h-16 px-6 bg-accent text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] transition-all flex items-center justify-center text-center whitespace-nowrap"
+            className="w-full sm:w-64 h-16 px-6 border border-white/20 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-sm hover:translate-y-[-2px] hover:border-white transition-all bg-white/5 backdrop-blur-sm flex items-center justify-center text-center whitespace-nowrap"
           >
             Telegramdan yozish
           </a>

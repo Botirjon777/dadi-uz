@@ -46,7 +46,6 @@ function WorkItem({ work, index }: WorkItemProps) {
             ref={videoRef}
             src={work.src}
             loop
-            muted
             playsInline
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onPlay={() => setIsPlaying(true)}
@@ -67,16 +66,6 @@ function WorkItem({ work, index }: WorkItemProps) {
             </div>
           </button>
         </div>
-      </div>
-
-      {/* Hover Overlay Details */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-2.5 md:p-5 pointer-events-none z-10">
-        <span className="text-[9px] font-display font-bold text-accent uppercase mb-2 tracking-[0.2em]">
-          {work.category}
-        </span>
-        <h3 className="text-lg md:text-xl font-display font-bold text-white leading-tight uppercase">
-          {work.title}
-        </h3>
       </div>
     </div>
   );
@@ -102,7 +91,6 @@ export function WorksSection() {
           </div>
           <div className="text-muted max-w-sm text-xs uppercase tracking-[0.2em] reveal leading-relaxed">
             Har bir kadrda - yangi hikoya, har bir soniyada - yuqori sifat.
-            Vertical formatdagi eng sara loyihalarimiz.
           </div>
         </div>
       </div>
