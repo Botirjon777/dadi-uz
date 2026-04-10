@@ -55,7 +55,10 @@ export function Navbar() {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative w-24 h-8 transition-all duration-300 hover:scale-105">
+          <Link
+            href="/"
+            className="relative w-24 h-8 transition-all duration-300 hover:scale-105"
+          >
             <Image
               src="/images/logos/logo-white.webp"
               alt="Dadi.uz"
@@ -77,14 +80,6 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={CONTACT_INFO.telegram_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2 border border-accent text-accent hover:bg-accent hover:text-white transition-all text-[10px] font-display font-bold uppercase tracking-[0.2em] rounded-sm"
-            >
-              Gaplashamiz
-            </a>
           </div>
 
           {/* Mobile Toggle */}
@@ -93,31 +88,54 @@ export function Navbar() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
-            <div className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-6 rotate-45 translate-y-2" : "w-6"}`} />
-            <div className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-0 opacity-0" : "w-4 group-hover:w-6"}`} />
-            <div className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-6 -rotate-45 -translate-y-2" : "w-6"}`} />
+            <div
+              className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-6 rotate-45 translate-y-2" : "w-6"}`}
+            />
+            <div
+              className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-0 opacity-0" : "w-4 group-hover:w-6"}`}
+            />
+            <div
+              className={`h-0.5 bg-text transition-all duration-500 ${isMenuOpen ? "w-6 -rotate-45 -translate-y-2" : "w-6"}`}
+            />
           </button>
         </div>
       </nav>
 
       {/* Mobile Sidebar System */}
-      <div className={`fixed inset-0 z-100 md:hidden transition-all duration-500 ${isMenuOpen ? "visible" : "invisible"}`}>
+      <div
+        className={`fixed inset-0 z-100 md:hidden transition-all duration-500 ${isMenuOpen ? "visible" : "invisible"}`}
+      >
         {/* Backdrop */}
-        <div 
+        <div
           className={`absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
           onClick={() => setIsMenuOpen(false)}
         />
-        
+
         {/* Sidebar Panel */}
-        <div className={`absolute top-0 right-0 w-[85%] h-full bg-bg border-l border-border transition-transform duration-500 ease-out flex flex-col ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div
+          className={`absolute top-0 right-0 w-[85%] h-full bg-bg border-l border-border transition-transform duration-500 ease-out flex flex-col ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        >
           {/* Sidebar Header */}
           <div className="p-8 border-b border-border flex items-center justify-between">
-             <Link href="/" onClick={() => setIsMenuOpen(false)} className="relative w-20 h-6">
-                <Image src="/images/logos/logo-white.webp" alt="Dadi" fill className="object-contain" sizes="80px" />
-             </Link>
-             <button onClick={() => setIsMenuOpen(false)} className="text-muted hover:text-text p-2">
-                <X size={20} />
-             </button>
+            <Link
+              href="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="relative w-20 h-6"
+            >
+              <Image
+                src="/images/logos/logo-white.webp"
+                alt="Dadi"
+                fill
+                className="object-contain"
+                sizes="80px"
+              />
+            </Link>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-muted hover:text-text p-2"
+            >
+              <X size={20} />
+            </button>
           </div>
 
           {/* Sidebar Links */}
@@ -141,29 +159,34 @@ export function Navbar() {
           {/* Sidebar Footer */}
           <div className="p-8 bg-surface/50 border-t border-border space-y-8">
             <div className="flex flex-col gap-4">
-               <span className="text-[10px] font-display font-bold text-muted uppercase tracking-[0.2em]">Bog'lanish</span>
-               <a href={CONTACT_INFO.telegram_link} className="text-lg font-display font-bold hover:text-accent transition-colors">
-                  {CONTACT_INFO.telegram}
-               </a>
+              <span className="text-[10px] font-display font-bold text-muted uppercase tracking-[0.2em]">
+                Bog'lanish
+              </span>
+              <a
+                href={CONTACT_INFO.telegram_link}
+                className="text-lg font-display font-bold hover:text-accent transition-colors"
+              >
+                {CONTACT_INFO.telegram}
+              </a>
             </div>
-            
+
             <div className="flex items-center gap-6">
-               <a 
-                href={CONTACT_INFO.telegram_link} 
+              <a
+                href={CONTACT_INFO.telegram_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-text/50 hover:border-accent hover:text-accent transition-all duration-300"
-               >
-                  <Send size={20} />
-               </a>
-               <a 
+              >
+                <Send size={20} />
+              </a>
+              <a
                 href={`https://instagram.com/${CONTACT_INFO.instagram.replace("@", "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-text/50 hover:border-accent hover:text-accent transition-all duration-300"
-               >
-                  <InstagramIcon size={20} />
-               </a>
+              >
+                <InstagramIcon size={20} />
+              </a>
             </div>
           </div>
         </div>
@@ -171,4 +194,3 @@ export function Navbar() {
     </>
   );
 }
-

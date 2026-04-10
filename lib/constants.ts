@@ -1,5 +1,5 @@
 export const NAV_LINKS = [
-  { label: "Biz Kim?", href: "#about" },
+  { label: "Biz haqimizda?", href: "#about" },
   { label: "Xizmatlar", href: "#services" },
   { label: "Ishlar", href: "#works" },
   { label: "Aloqa", href: "#contact" },
@@ -8,21 +8,23 @@ export const NAV_LINKS = [
 export const SERVICES = [
   {
     id: "01",
-    title: "Kuchli Ideya",
+    title: "Video production",
     description:
-      "Maqsadingizga mos, boshqalardan ajralib turadigan konsepsiya.",
+      "Professional syomka, kuchli dron kadrlar, professional montaj",
     icon: "spark",
   },
   {
     id: "02",
-    title: "Video Ishlab Chiqarish",
-    description: "Professional syomka, montaj, motion graphics.",
+    title: "Reklama kompaniyalari",
+    description:
+      "Mahsulotingiz yoki brendingiz uchun qisqa muddatli reklama kompaniyalari, kreativlar",
     icon: "camera",
   },
   {
     id: "03",
-    title: "Reklama Kampaniyasi",
-    description: "Platforma uchun to'liq tayyor kreativ.",
+    title: "SMM xizmati",
+    description:
+      "Ijtimoiy tarmoqlaringizni doimiy kreativ kontent bilan yuritish",
     icon: "megaphone",
   },
 ];
@@ -93,8 +95,7 @@ export const GALLERY = [
 
 export const CONTACT_INFO = {
   telegram: "@dadi_uz",
-  telegram_link: "https://t.me/dadi_uz",
-  phone: "+998 90 123 45 67",
-  email: "hello@dadi.uz",
-  instagram: "@dadi.uz",
+  telegram_link: "https://t.me/AzizMuhiddinov",
+  phone: "+998 99 102 20 21",
+  instagram: "@dadi.media",
 };

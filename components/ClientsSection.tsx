@@ -16,8 +16,8 @@ export function ClientsSection() {
   return (
     <section className="py-24 bg-bg overflow-hidden border-y border-border">
       <div className="container mx-auto px-6 mb-16">
-        <h2 className="text-center text-muted font-display font-bold text-[10px] uppercase tracking-wider reveal">
-          [ BIZ BILAN ISHLAYDIGANLAR ]
+        <h2 className="text-center text-muted font-display font-bold text-xl uppercase tracking-wider reveal">
+          [ MIJOZLARIMIZ ]
         </h2>
       </div>
 

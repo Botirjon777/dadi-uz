@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CONTACT_INFO } from "@/lib/constants";
 import { Send, Phone, MessageSquare, CheckCircle2 } from "lucide-react";
+import { sendContactFormAction } from "@/app/actions";
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg
@@ -22,12 +23,23 @@ const InstagramIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 export function ContactSection() {
-  const [formState, setFormState] = useState<"idle" | "sending" | "success">("idle");
+  const [formState, setFormState] = useState<"idle" | "sending" | "success">(
+    "idle",
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState("sending");
-    setTimeout(() => setFormState("success"), 1500);
+
+    const formData = new FormData(e.currentTarget);
+    const result = await sendContactFormAction(formData);
+
+    if (result.success) {
+      setFormState("success");
+    } else {
+      alert(result.message || "Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
+      setFormState("idle");
+    }
   };
 
   return (
@@ -40,10 +52,11 @@ export function ContactSection() {
               [ ALOQA ]
             </span>
             <h2 className="text-3xl md:text-6xl font-display font-bold mb-6 md:mb-8">
-              Gaplashamiz
+              Biz bilan bog'laning
             </h2>
             <p className="max-w-md text-muted mb-12">
-              Loyiha haqida batafsil ma'lumot qoldiring yoki to'g'ridan-to'g'ri bog'laning.
+              Loyiha haqida batafsil ma'lumot qoldiring yoki to'g'ridan-to'g'ri
+              bog'laning.
             </p>
 
             <div className="space-y-6">
@@ -65,7 +78,9 @@ export function ContactSection() {
                 <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-accent transition-colors">
                   <MessageSquare size={18} />
                 </div>
-                <span className="text-lg font-mono">{CONTACT_INFO.telegram}</span>
+                <span className="text-lg font-mono">
+                  {CONTACT_INFO.telegram}
+                </span>
               </a>
               <a
                 href={`https://instagram.com/${CONTACT_INFO.instagram.replace("@", "")}`}
@@ -76,17 +91,24 @@ export function ContactSection() {
                 <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-accent transition-colors">
                   <InstagramIcon size={18} />
                 </div>
-                <span className="text-lg font-mono">{CONTACT_INFO.instagram}</span>
+                <span className="text-lg font-mono">
+                  {CONTACT_INFO.instagram}
+                </span>
               </a>
             </div>
           </div>
 
           {/* Right Column: Form */}
-          <div className="reveal">
+          <div className="reveal lg:border-l lg:border-border lg:pl-20">
+            <h2 className="text-xl md:text-3xl font-display font-bold mb-2.5 md:mb-5">
+              Biz siz bilan bog'lanamiz
+            </h2>
             {formState === "success" ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-10 border border-accent bg-accent/5 rounded-sm">
                 <CheckCircle2 className="w-16 h-16 text-accent mb-6" />
-                <h3 className="text-2xl font-display font-bold mb-4">Muvaffaqiyatli yuborildi</h3>
+                <h3 className="text-2xl font-display font-bold mb-4">
+                  Muvaffaqiyatli yuborildi
+                </h3>
                 <p className="text-muted">Tez orada siz bilan bog'lanamiz.</p>
                 <button
                   onClick={() => setFormState("idle")}
@@ -98,34 +120,47 @@ export function ContactSection() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Ismingiz</label>
+                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
+                    Ismingiz
+                  </label>
                   <input
                     required
+                    name="ism"
                     type="text"
                     className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="Ali Valiyev"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Telefon raqam</label>
+                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
+                    Telefon raqam
+                  </label>
                   <input
                     required
+                    name="telefon"
                     type="tel"
                     className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="+998 90 000 00 00"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Kompaniya nomi (ixtiyoriy)</label>
+                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
+                    Kompaniya nomi (ixtiyoriy)
+                  </label>
                   <input
+                    name="kompaniya"
                     type="text"
                     className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
                     placeholder="Brend nomi"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">Xabar / Maqsad</label>
+                  <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
+                    Xabar / Maqsad
+                  </label>
                   <textarea
+                    required
+                    name="xabar"
                     rows={4}
                     className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors resize-none placeholder:text-muted/50"
                     placeholder="Qanday loyiha ustida ishlaymiz?"

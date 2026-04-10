@@ -97,7 +97,7 @@ export function WorksSection() {
               [ VIDEO REELS ]
             </span>
             <h2 className="text-3xl md:text-6xl font-display font-bold reveal leading-tight md:leading-none">
-              Tanlangan <span className="text-muted">ishlarimiz</span>
+              Ayrim <span className="text-muted">namunalar</span>
             </h2>
           </div>
           <div className="text-muted max-w-sm text-xs uppercase tracking-[0.2em] reveal leading-relaxed">
@@ -159,13 +159,6 @@ export function WorksSection() {
               size={20}
               className="transition-transform group-hover:translate-x-0.5"
             />
-          </button>
-        </div>
-
-        {/* Footer CTA */}
-        <div className="mt-12 md:mt-16 text-center reveal">
-          <button className="text-[10px] font-display font-bold tracking-[0.3em] uppercase py-4 px-12 border border-border hover:border-accent hover:text-accent transition-all duration-300">
-            Barcha loyihalarni ko'rish
           </button>
         </div>
       </div>

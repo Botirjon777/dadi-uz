@@ -79,7 +79,7 @@ export function Footer() {
           {/* Bottom: All rights reserved */}
           <div className="pt-8 w-full border-t border-border/50 text-center">
             <div className="text-[9px] md:text-[10px] font-display font-medium text-text/30 uppercase tracking-[0.3em]">
-              © {currentYear} · DADI STUDIO · BARCHA HUQUQLAR HIMOYALANGAN
+              © {currentYear} · DADI MEDIA · BARCHA HUQUQLAR HIMOYALANGAN
             </div>
           </div>
         </div>
