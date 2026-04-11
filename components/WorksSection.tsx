@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -15,22 +16,40 @@ import "swiper/css/navigation";
 interface WorkItemProps {
   work: (typeof WORKS)[0];
   index: number;
+  activeVideoId: number | null;
+  setActiveVideoId: (id: number | null) => void;
 }
 
-function WorkItem({ work, index }: WorkItemProps) {
+function WorkItem({
+  work,
+  index,
+  activeVideoId,
+  setActiveVideoId,
+}: WorkItemProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Pause if another video starts playing
+  useEffect(() => {
+    if (activeVideoId !== work.id && isPlaying) {
+      videoRef.current?.pause();
+      setIsPlaying(false);
+    }
+  }, [activeVideoId, work.id, isPlaying]);
 
   const togglePlay = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
+        setActiveVideoId(null);
       } else {
         videoRef.current.play();
+        setActiveVideoId(work.id);
       }
       setIsPlaying(!isPlaying);
     }
   };
+
 
   return (
     <div
@@ -48,8 +67,12 @@ function WorkItem({ work, index }: WorkItemProps) {
             loop
             playsInline
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            onPlay={() => setIsPlaying(true)}
+            onPlay={() => {
+              setIsPlaying(true);
+              setActiveVideoId(work.id);
+            }}
             onPause={() => setIsPlaying(false)}
+
           />
           {/* Custom Play/Pause Overlay */}
           <button
@@ -73,6 +96,8 @@ function WorkItem({ work, index }: WorkItemProps) {
 
 export function WorksSection() {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
+  const [activeVideoId, setActiveVideoId] = useState<number | null>(null);
+
 
   return (
     <section
@@ -115,9 +140,15 @@ export function WorksSection() {
         >
           {WORKS.map((work, i) => (
             <SwiperSlide key={work.id}>
-              <WorkItem work={work} index={i} />
+              <WorkItem
+                work={work}
+                index={i}
+                activeVideoId={activeVideoId}
+                setActiveVideoId={setActiveVideoId}
+              />
             </SwiperSlide>
           ))}
+
         </Swiper>
 
         {/* Subtle Gradient Fades */}
