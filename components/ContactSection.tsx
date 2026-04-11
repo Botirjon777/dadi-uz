@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { CONTACT_INFO } from "@/lib/constants";
-import { Send, Phone, MessageSquare, CheckCircle2 } from "lucide-react";
+import { Send, Phone, MessageSquare, CheckCircle2, AlertCircle } from "lucide-react";
 import { sendContactFormAction } from "@/app/actions";
+import { cn } from "@/lib/utils";
+
 
 const InstagramIcon = ({ size = 18 }: { size?: number }) => (
   <svg
@@ -26,21 +28,59 @@ export function ContactSection() {
   const [formState, setFormState] = useState<"idle" | "sending" | "success">(
     "idle",
   );
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormState("sending");
+    setErrors({});
 
     const formData = new FormData(e.currentTarget);
+    const ism = formData.get("ism") as string;
+    const telefon = formData.get("telefon") as string;
+    const xabar = formData.get("xabar") as string;
+
+    const newErrors: Record<string, string> = {};
+
+    if (!ism.trim()) {
+      newErrors.ism = "Iltimos, ismingizni kiriting";
+    }
+
+    const phoneRegex = /^\+998\d{9}$/;
+    if (!telefon.trim()) {
+      newErrors.telefon = "Iltimos, telefon raqamingizni kiriting";
+    } else if (!phoneRegex.test(telefon)) {
+      newErrors.telefon = "Iltimos, raqamni to'g'ri kiriting (+998XXXXXXXXX)";
+    }
+
+    if (!xabar.trim()) {
+      newErrors.xabar = "Iltimos, xabar qoldiring";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setFormState("sending");
+
     const result = await sendContactFormAction(formData);
 
     if (result.success) {
       setFormState("success");
     } else {
-      alert(result.message || "Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.");
+      setErrors((prev) => ({
+        ...prev,
+        form:
+          result.message ||
+          "Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.",
+      }));
       setFormState("idle");
     }
   };
+
+
+
 
   return (
     <section id="contact" className="py-32 bg-bg border-t border-border">
@@ -118,7 +158,12 @@ export function ContactSection() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                noValidate
+              >
+
                 <div>
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
                     Ismingiz
@@ -127,9 +172,22 @@ export function ContactSection() {
                     required
                     name="ism"
                     type="text"
-                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
+                    maxLength={100}
+                    className={cn(
+                      "w-full bg-surface border p-2.5 md:p-5 focus:outline-none transition-colors placeholder:text-muted/50",
+                      errors.ism
+                        ? "border-red-500/50 focus:border-red-500"
+                        : "border-border focus:border-accent",
+                    )}
                     placeholder="Ali Valiyev"
                   />
+                  {errors.ism && (
+                    <p className="text-[10px] text-red-500 mt-1 flex items-center gap-1">
+                      <AlertCircle size={10} /> {errors.ism}
+                    </p>
+                  )}
+
+
                 </div>
                 <div>
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
@@ -139,9 +197,27 @@ export function ContactSection() {
                     required
                     name="telefon"
                     type="tel"
-                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
-                    placeholder="+998 90 000 00 00"
+                    pattern="^\+998\d{9}$"
+                    title="Telefon raqami +998XXXXXXXXX formatida bo'lishi kerak"
+                    className={cn(
+                      "w-full bg-surface border p-2.5 md:p-5 focus:outline-none transition-colors placeholder:text-muted/50",
+                      errors.telefon
+                        ? "border-red-500/50 focus:border-red-500"
+                        : "border-border focus:border-accent",
+                    )}
+                    placeholder="+998900000000"
                   />
+                  {errors.telefon ? (
+                    <p className="text-[10px] text-red-500 mt-1 flex items-center gap-1">
+                      <AlertCircle size={10} /> {errors.telefon}
+                    </p>
+                  ) : (
+                    <span className="text-[9px] text-muted/60 mt-1 block">
+                      Format: +998XXXXXXXXX
+                    </span>
+                  )}
+
+
                 </div>
                 <div>
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
@@ -150,9 +226,22 @@ export function ContactSection() {
                   <input
                     name="kompaniya"
                     type="text"
-                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors placeholder:text-muted/50"
+                    maxLength={100}
+                    className={cn(
+                      "w-full bg-surface border p-2.5 md:p-5 focus:outline-none transition-colors placeholder:text-muted/50",
+                      errors.kompaniya
+                        ? "border-red-500/50 focus:border-red-500"
+                        : "border-border focus:border-accent",
+                    )}
                     placeholder="Brend nomi"
                   />
+                  {errors.kompaniya && (
+                    <p className="text-[10px] text-red-500 mt-1 flex items-center gap-1">
+                      <AlertCircle size={10} /> {errors.kompaniya}
+                    </p>
+                  )}
+
+
                 </div>
                 <div>
                   <label className="text-[10px] font-display font-bold uppercase text-muted mb-2 block tracking-wider">
@@ -162,9 +251,22 @@ export function ContactSection() {
                     required
                     name="xabar"
                     rows={4}
-                    className="w-full bg-surface border border-border p-2.5 md:p-5 focus:border-accent focus:outline-none transition-colors resize-none placeholder:text-muted/50"
+                    maxLength={500}
+                    className={cn(
+                      "w-full bg-surface border p-2.5 md:p-5 focus:outline-none transition-colors resize-none placeholder:text-muted/50",
+                      errors.xabar
+                        ? "border-red-500/50 focus:border-red-500"
+                        : "border-border focus:border-accent",
+                    )}
                     placeholder="Qanday loyiha ustida ishlaymiz?"
                   />
+                  {errors.xabar && (
+                    <p className="text-[10px] text-red-500 mt-1 flex items-center gap-1">
+                      <AlertCircle size={10} /> {errors.xabar}
+                    </p>
+                  )}
+
+
                 </div>
                 <button
                   type="submit"
@@ -174,7 +276,13 @@ export function ContactSection() {
                   {formState === "sending" ? "Yuborilmoqda..." : "Yuborish"}
                   <Send size={18} />
                 </button>
+                {errors.form && (
+                  <p className="text-xs text-red-500 text-center flex items-center justify-center gap-2 mt-4 bg-red-500/5 py-2 border border-red-500/10">
+                    <AlertCircle size={14} /> {errors.form}
+                  </p>
+                )}
               </form>
+
             )}
           </div>
         </div>
