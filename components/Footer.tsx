@@ -22,7 +22,6 @@ const InstagramIcon = ({ size = 18 }: { size?: number }) => (
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-
   return (
     <footer className="py-16 md:py-24 bg-bg border-t border-border">
       <div className="container mx-auto px-6">
@@ -39,7 +38,6 @@ export function Footer() {
               </Link>
             ))}
           </nav>
-
           {/* Center: Logo */}
           <Link
             href="/"
@@ -53,10 +51,9 @@ export function Footer() {
               sizes="200px"
             />
           </Link>
-
           {/* Below Logo: Social icons */}
           <div className="flex items-center gap-8">
-            <a
+            
               href={CONTACT_INFO.telegram_link}
               target="_blank"
               rel="noopener noreferrer"
@@ -65,7 +62,7 @@ export function Footer() {
             >
               <Send size={18} />
             </a>
-            <a
+            
               href={`https://instagram.com/${CONTACT_INFO.instagram.replace("@", "")}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -75,11 +72,22 @@ export function Footer() {
               <InstagramIcon size={18} />
             </a>
           </div>
-
           {/* Bottom: All rights reserved */}
           <div className="pt-8 w-full border-t border-border/50 text-center">
             <div className="text-[9px] md:text-[10px] font-display font-medium text-text/30 uppercase tracking-[0.3em]">
               © {currentYear} · DADI MEDIA · BARCHA HUQUQLAR HIMOYALANGAN
+            </div>
+            {/* Created by credit */}
+            <div className="mt-3 text-[9px] md:text-[10px] font-display font-medium text-text/30 uppercase tracking-[0.3em]">
+              CREATED BY{" "}
+              
+                href="https://t.me/botirjon_sh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text/50 hover:text-accent transition-colors duration-300"
+              >
+                @botirjon_sh
+              </a>
             </div>
           </div>
         </div>
