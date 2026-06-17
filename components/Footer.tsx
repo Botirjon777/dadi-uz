@@ -53,7 +53,7 @@ export function Footer() {
           </Link>
           {/* Below Logo: Social icons */}
           <div className="flex items-center gap-8">
-            
+            <a
               href={CONTACT_INFO.telegram_link}
               target="_blank"
               rel="noopener noreferrer"
@@ -62,7 +62,7 @@ export function Footer() {
             >
               <Send size={18} />
             </a>
-            
+            <a
               href={`https://instagram.com/${CONTACT_INFO.instagram.replace("@", "")}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -80,7 +80,7 @@ export function Footer() {
             {/* Created by credit */}
             <div className="mt-3 text-[9px] md:text-[10px] font-display font-medium text-text/30 uppercase tracking-[0.3em]">
               CREATED BY{" "}
-              
+              <a
                 href="https://t.me/botirjon_sh"
                 target="_blank"
                 rel="noopener noreferrer"
